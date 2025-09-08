@@ -1,0 +1,51 @@
+﻿@model List<Funcionario>
+
+@{
+    ViewData["Title"] = "Funcionaários";
+}
+
+<div class="text-center">
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <a class="btn btn-success" role="button" asp-controller="Funcionario" asp-action="Create">Adicionar novo funcionário</a>
+        <a class="btn btn-success" role="button">Áreas de Especialização</a>
+        <a class="btn btn-success" role="button">Histórico de Projetos</a>
+    </div>
+    <br />
+    <h1 class="display-4">Lista de Funcionários</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Especialização</th>
+                <th scope="col">Data da Contratação</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (Funcionario funcionario in Model)
+                {
+                    <tr>
+                        <th scope="row">@funcionario.Id</th>
+                        <td>@funcionario.Nome</td>
+                        <td>@funcionario.Email</td>
+                        <td>@funcionario.Especializacao</td>
+                        <td>@funcionario.DataContratacao</td>
+                        <td></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-success" asp-route-id="@funcionario.Id" asp-controller="Funcionario" asp-action="Edit">Editar</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@funcionario.Id" asp-controller="Funcionario" asp-action="DeleteConfirmation">Apagar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>

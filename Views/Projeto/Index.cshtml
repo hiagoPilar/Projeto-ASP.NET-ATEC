@@ -1,0 +1,55 @@
+﻿@model List<Projeto>
+
+@{
+    ViewData["Title"] = "Projetos";
+}
+
+<div class="text-center">
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <a class="btn btn-success" role="button" asp-controller="Projeto" asp-action="Create">Adicionar novo projeto</a>
+        <a class="btn btn-success" role="button">Projetos Ativos</a>
+        
+    </div>
+    
+    <h1 class="display-4">Lista de Projetos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Data de Início</th>
+                <th scope="col">Data de Fim</th>
+                <th scope="col">Orçamento</th>
+                <th scope="col">Cliente ID</th>
+                <th scope="col"></th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null & Model.Any())
+            {
+                foreach(Projeto projeto in Model)
+                {
+                    <tr>
+                        <th scope="row">@projeto.Id</th>
+                        <td>@projeto.Descricao</td>
+                        <td>@projeto.DataInicio</td>
+                        <td>@projeto.DataFim</td>
+                        <td>@projeto.Orcamento</td>
+                        <td>@projeto.ClienteId</td>
+                        <td></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-success" asp-route-id="@projeto.Id" asp-controller="Projeto" asp-action="Edit">Editar</a>
+                                <a role="button" class="btn btn-danger" aspr-route-id="@projeto.Id" asp-controller="Projeto" asp-action="Delete">Apagar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+</div>

@@ -1,0 +1,28 @@
+﻿@model Cliente
+
+@{
+    ViewData["Title"] = "Criar Cliente";
+}
+
+<div class="text-center">
+
+   
+    <h1 class="display-4">Cadastrar Cliente</h1>
+    
+</div>
+
+<form asp-controller="Cliente" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome completo">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email">
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success btn-block w-100 py-2">Adicionar</button>
+    <br />
+    <br />
+    <a class="btn btn-secondary btn-block w-100 py-2" asp-controller="Cliente" asp-action="Index" role="button">Voltar</a>
+</form>
