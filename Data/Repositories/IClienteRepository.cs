@@ -1,4 +1,6 @@
 ﻿using Projeto_ASP.NET_Core_ATEC.Models;
+using Projeto_ASP.NET_Core_ATEC.ViewModels;
+using System.Threading.Tasks;
 
 namespace Projeto_ASP.NET_Core_ATEC.Data.Repositories
 {
@@ -18,5 +20,7 @@ namespace Projeto_ASP.NET_Core_ATEC.Data.Repositories
         Cliente ContratosClienteAtivos(Cliente cliente);
 
         Cliente HistoricoFaturacao(Cliente cliente);
+        // metodo assincrono para relatorio de projetos ativos
+        Task<IEnumerable<RelatorioProjetosViewModel>> GetRelatorioProjetosAtivosAsync();
     }
 }

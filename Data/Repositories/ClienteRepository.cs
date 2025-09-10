@@ -1,4 +1,6 @@
-﻿using Projeto_ASP.NET_Core_ATEC.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Projeto_ASP.NET_Core_ATEC.Models;
+using Projeto_ASP.NET_Core_ATEC.ViewModels;
 
 namespace Projeto_ASP.NET_Core_ATEC.Data.Repositories
 {
@@ -10,7 +12,15 @@ namespace Projeto_ASP.NET_Core_ATEC.Data.Repositories
         {
             _bancoContext = bancoContext;
         }
-        
+
+        //logica para o procedure GetProjetosAtivosPorCliente que estar no sql server
+        public async Task<IEnumerable<RelatorioProjetosViewModel>> GetRelatorioProjetosAtivosAsync()
+        {
+            return await _bancoContext.RelatorioProjetosViewModel
+                                 .FromSqlRaw("EXEC GetProjetosAtivosPorCliente")
+                                 .ToListAsync();
+        }
+
         public Cliente AdicionarNovoCliente(Cliente cliente)
         {
             _bancoContext.Clientes.Add(cliente);
