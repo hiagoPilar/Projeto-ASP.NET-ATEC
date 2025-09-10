@@ -1,26 +1,30 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using System.Threading.Tasks;
 
 namespace Projeto_ASP.NET_Core_ATEC
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+             
 
-
-            builder.Services.AddDbContext<BancoContext>(
-                options => options.UseSqlServer(
+            builder.Services.AddDbContext<BancoContext>( 
+                options => options.UseSqlServer( 
                     builder.Configuration.GetConnectionString
-                    ("DataBase")));
+                    ("DataBase"))); 
 
+            
 
 
             builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
             builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
+            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
 
 
@@ -47,8 +51,11 @@ namespace Projeto_ASP.NET_Core_ATEC
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Login}/{action=Index}/{id?}")
                 .WithStaticAssets();
+
+
+            
 
             app.Run();
         }
