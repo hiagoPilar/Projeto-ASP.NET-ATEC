@@ -1,0 +1,48 @@
+﻿@using Projeto_ASP.NET_Core_ATEC.Enums
+@model Usuario
+
+@{
+    ViewData["Title"] = "Criar Usúario";
+}
+
+<div class="text-center">
+
+
+    <h1 class="display-4">Cadastrar Usuário</h1>
+
+</div>
+
+<form asp-controller="Usuario" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome completo">
+    </div>
+    <div class="mb-3">
+        <label for="login" class="form-label">Login</label>
+        <input type="text" asp-for="Login" class="form-control" placeholder="Digite o login">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Perfil</label>
+
+        <select asp-for="Perfil" class="form-control">
+            <option value="0">Selecione</option>
+            <option value="@PerfilEnum.Admin">Administrador</option>
+            <option value="@PerfilEnum.Gestor">Gestor</option>
+            <option value="@PerfilEnum.Funcionario">Funcionário</option>
+            <option value="@PerfilEnum.Cliente">Cliente</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Senha</label>
+        <input type="password" asp-for="Senha" class="form-control" placeholder="Digite a senha">
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success btn-block w-100 py-2">Adicionar</button>
+    <br />
+    <br />
+    <a class="btn btn-secondary btn-block w-100 py-2" asp-controller="Usuario" asp-action="Index" role="button">Voltar</a>
+</form>

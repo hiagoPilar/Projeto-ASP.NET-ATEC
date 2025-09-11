@@ -1,21 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
 using Projeto_ASP.NET_Core_ATEC.Models;
+using System.Threading.Tasks;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
+    
     public class ClienteController : Controller
     {
         private readonly IClienteRepository _clienteRepository;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ClienteController(IClienteRepository clienteRepository)
+        public ClienteController(IClienteRepository clienteRepository, UserManager<IdentityUser> userManager)
         {
             _clienteRepository = clienteRepository;
+            _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+           
+            
             List<Cliente> clientes = _clienteRepository.BuscarTodos(); 
+
             return View(clientes);
         }
 
@@ -46,15 +55,25 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
         [HttpPost]
         public IActionResult Create(Cliente cliente)
         {
-            _clienteRepository.AdicionarNovoCliente(cliente);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _clienteRepository.AdicionarNovoCliente(cliente);
+                return RedirectToAction("Index");
+            }
+
+            return View(cliente);
         }
 
         [HttpPost]
         public IActionResult Edit(Cliente cliente)
         {
-            _clienteRepository.Atualizar(cliente);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _clienteRepository.Atualizar(cliente);
+                return RedirectToAction("Index");
+            }
+
+            return View(cliente);
         }
 
         

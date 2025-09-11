@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Projeto_ASP.NET_Core_ATEC.Models;
 using Projeto_ASP.NET_Core_ATEC.ViewModels;
 
 namespace Projeto_ASP.NET_Core_ATEC.Data
 {
-    public class BancoContext : DbContext
+    public class BancoContext : IdentityDbContext
     {
         public BancoContext(DbContextOptions<BancoContext> options) : base(options) 
         {
@@ -16,14 +17,24 @@ namespace Projeto_ASP.NET_Core_ATEC.Data
         public DbSet<Projeto> Projetos { get; set; }
         public DbSet<Contrato> Contratos { get; set; }
         public DbSet<ProjetoFuncionario> ProjetoFuncionarios { get; set; }
+
+        public DbSet<Usuario> Usuarios { get; set; }
+
         //ligação com a ViewModel
         public DbSet<RelatorioProjetosViewModel> RelatorioProjetosViewModel { get; set; }
 
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            
+            base.OnModelCreating(modelBuilder);
+            
+
             // Configuração para a ViewModel para ligacao da consulta SQL
             modelBuilder.Entity<RelatorioProjetosViewModel>().HasNoKey().ToView(null);
+
 
             // Configurações com Fluent API
             modelBuilder.Entity<Projeto>()

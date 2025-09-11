@@ -28,6 +28,10 @@ namespace Projeto_ASP.NET_Core_ATEC.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Valor {  get; set; }
         public string Condicoes { get; set; }
+
+
+        [Required(ErrorMessage = "O cliente é obrigatório.")]
+        [Display(Name = "Cliente")]
         public int ClienteId { get; set; }
 
         [ForeignKey("ClienteId")]
@@ -38,6 +42,19 @@ namespace Projeto_ASP.NET_Core_ATEC.Models
 
         [ForeignKey("ProjetoId")]
         public Projeto Projeto { get; set; }
+
+
+        public static ValidationResult ValidarDataFim(DateTime dataFim, ValidationContext context)
+        {
+            var contrato = (Contrato)context.ObjectInstance;
+
+            if(dataFim < contrato.DataInicio)
+            {
+                return new ValidationResult("A data de fim deve ser posterior a data de início.");
+            }
+
+            return ValidationResult.Success;
+        }
 
     }
 }

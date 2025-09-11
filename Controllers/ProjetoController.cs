@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
 using Projeto_ASP.NET_Core_ATEC.Models;
 
@@ -9,11 +11,13 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
     {
         private readonly IProjetoRepository _projetoRepository;
         private readonly IClienteRepository _clienteRepository;
+        private readonly BancoContext _bancoContext;
 
-        public ProjetoController(IProjetoRepository projetoRepository, IClienteRepository clienteRepository)
+        public ProjetoController(IProjetoRepository projetoRepository, IClienteRepository clienteRepository, BancoContext bancoContext)
         {
             _projetoRepository = projetoRepository;
             _clienteRepository = clienteRepository;
+            _bancoContext = bancoContext;
         }
 
         
@@ -25,25 +29,23 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
 
         public IActionResult Create()
         {
-            //carrega a lista de clientes para o dropdown
-            var clientes = _clienteRepository.BuscarTodos();
 
-            if (clientes == null || !clientes.Any())
-            {
-                // Redirecione ou mostre mensagem se não houver clientes
-                ViewData["MensagemErro"] = "É necessário cadastrar clientes primeiro.";
-                return View();
-            }
 
-            ViewData["ClienteId"] = new SelectList(clientes, "Id", "Nome");
+            ViewBag.ClienteId = new SelectList(_bancoContext.Clientes, "Id", "Nome");
             return View();
         }
 
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Projeto projeto)
         {
+
+            _projetoRepository.Adicionar(projeto);
+            return RedirectToAction("Index");
+
+            /*
             if (ModelState.IsValid)
             {
                 try
@@ -60,9 +62,9 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
             // Se chegou aqui, significa que houve erro
             // Recarrega os dados necessários para o dropdown
             var clientes = _clienteRepository.BuscarTodos() ?? new List<Cliente>();
-            ViewData["ClienteId"] = new SelectList(clientes, "Id", "Nome", projeto.ClienteId);
-
+            ViewBag.ClienteId = new SelectList(clientes, "Id", "Nome", projeto.ClienteId);
             return View(projeto);
+            */
 
         }
     }

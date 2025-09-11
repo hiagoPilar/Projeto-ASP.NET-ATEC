@@ -33,12 +33,10 @@
         <label for="orcamento" class="form-label">Orçamento</label>
         <input type="number" step="0.1" min="0" asp-for="Orcamento" class="form-control" placeholder=""/>
     </div>
-    <div class="mb-3">
-        <label for="clienteId" class="form-label">Cliente</label>
-        <select asp-for="ClienteId" class="form-control" asp-items="@(ViewData["ClienteId"] as SelectList)">
-            <option value="">-- Selecione um Cliente --</option>
-        </select>
-        <span asp-validation-for="ClienteId" class="text-bg-danger"></span>
+    <div class="form-group">
+        <label asp-for="ClienteId" class="control-label"></label>
+        <select asp-for="ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
+        <span asp-validation-for="ClienteId" class="text-danger"></span>
     </div>
     <br />
     <button type="submit" class="btn btn-success btn-block w-100 py-2">Adicionar</button>
