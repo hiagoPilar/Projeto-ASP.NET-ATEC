@@ -2,7 +2,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+
 using System.Threading.Tasks;
+
+using Projeto_ASP.NET_Core_ATEC.Data.Repositories.Interfaces;
+
 
 namespace Projeto_ASP.NET_Core_ATEC
 {
@@ -24,7 +28,12 @@ namespace Projeto_ASP.NET_Core_ATEC
             builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
             builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
+
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+
+            // adicionando a injeção de dependencia do contrato
+            builder.Services.AddScoped<IContratoRepository, ContratoRepository>();
+
 
 
 

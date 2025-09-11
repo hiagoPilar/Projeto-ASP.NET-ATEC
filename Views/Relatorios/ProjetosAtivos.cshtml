@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Projeto_ASP.NET_Core_ATEC.ViewModels.RelatorioProjetosViewModel>
+
+@{
+    ViewData["Title"] = "Relatório de Projetos Ativos por Cliente";
+}
+
+<h2>Relatório de Projetos Ativos por Cliente</h2>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome do Cliente</th>
+            <th>Total de Projetos Ativos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NomeCliente</td>
+                <td>@item.TotalProjetosAtivos</td>
+            </tr>
+        }
+    </tbody>
+</table>
