@@ -43,18 +43,10 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NumeroContrato,Descricao,DataInicio,DataFim,Valor,Condicoes,ClienteId,ProjetoId")] Contrato contrato)
         {
-            if (ModelState.IsValid)
-            {
-                bool sucesso = await _contratoRepository.AdicionarNovoContratoValidadoAsync(contrato);
-                if (sucesso)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                // Adicionar lógica de erro aqui se a Stored Procedure retornar falha
-            }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id", contrato.ClienteId);
-            ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "Id", contrato.ProjetoId);
-            return View(contrato);
+            await _context.Contratos.AddAsync(contrato);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int? id)
