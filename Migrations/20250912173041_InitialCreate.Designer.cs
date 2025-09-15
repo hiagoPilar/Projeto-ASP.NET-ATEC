@@ -12,8 +12,8 @@ using Projeto_ASP.NET_Core_ATEC.Data;
 namespace Projeto_ASP.NET_Core_ATEC.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20250910162832_CriacaoTabelaUsuario")]
-    partial class CriacaoTabelaUsuario
+    [Migration("20250912173041_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -419,6 +419,20 @@ namespace Projeto_ASP.NET_Core_ATEC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Projeto_ASP.NET_Core_ATEC.ViewModels.RelatorioProjetosViewModel", b =>
+                {
+                    b.Property<string>("NomeCliente")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalProjetosAtivos")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView(null, (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -35,6 +35,10 @@ namespace Projeto_ASP.NET_Core_ATEC.Data
             // Configuração para a ViewModel para ligacao da consulta SQL
             modelBuilder.Entity<RelatorioProjetosViewModel>().HasNoKey().ToView(null);
 
+            modelBuilder.Entity<Projeto>()
+                .Property(p => p.Orcamento)
+                .HasPrecision(18, 2);
+
 
             // Configurações com Fluent API
             modelBuilder.Entity<Projeto>()

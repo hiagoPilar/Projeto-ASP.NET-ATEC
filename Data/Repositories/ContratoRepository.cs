@@ -24,7 +24,7 @@ namespace Projeto_ASP.NET_Core_ATEC.Data.Repositories
                                     .ToListAsync();
         }
 
-        public async Task<Contrato> GetByIdAsync(int id)
+        public async Task<Contrato?> GetByIdAsync(int id)
         {
             return await _bancoContext.Contratos
                                     .Include(c => c.Cliente)
@@ -56,14 +56,18 @@ namespace Projeto_ASP.NET_Core_ATEC.Data.Repositories
 
         public async Task<bool> AdicionarNovoContratoValidadoAsync(Contrato contrato)
         {
+            var pNumeroContrato = new SqlParameter("@NumeroContrato", contrato.NumeroContrato);
+            var pDescricao = new SqlParameter("@Descricao", contrato.Descricao);
             var pDataInicio = new SqlParameter("@DataInicio", contrato.DataInicio);
             var pDataFim = new SqlParameter("@DataFim", contrato.DataFim);
             var pValor = new SqlParameter("@Valor", contrato.Valor);
+            var pCondicoes = new SqlParameter("@Condicoes", contrato.Condicoes ?? (object)DBNull.Value); // Nullable
             var pClienteId = new SqlParameter("@ClienteId", contrato.ClienteId);
+            var pProjetoId = new SqlParameter("@ProjetoId", contrato.ProjetoId ?? (object)DBNull.Value); // Nullable
 
             var resultado = await _bancoContext.Database.ExecuteSqlRawAsync(
-                "EXEC sp_AdicionarNovoContratoValidado @DataInicio, @DataFim, @Valor, @ClienteId",
-                pDataInicio, pDataFim, pValor, pClienteId);
+                "EXEC sp_AdicionarNovoContratoValidado @NumeroContrato, @Descricao, @DataInicio, @DataFim, @Valor, @Condicoes, @ClienteId, @ProjetoId",
+                pNumeroContrato, pDescricao, pDataInicio, pDataFim, pValor, pCondicoes, pClienteId, pProjetoId);
 
             return resultado > 0;
         }

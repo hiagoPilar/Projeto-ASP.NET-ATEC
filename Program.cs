@@ -50,6 +50,9 @@ namespace Projeto_ASP.NET_Core_ATEC
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<BancoContext>();
+
 
 
             var app = builder.Build();
@@ -64,6 +67,9 @@ namespace Projeto_ASP.NET_Core_ATEC
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseAuthorization();
 
