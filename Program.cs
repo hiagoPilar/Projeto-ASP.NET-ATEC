@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+
 using Microsoft.EntityFrameworkCore;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
@@ -6,6 +6,8 @@ using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
 using System.Threading.Tasks;
 
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories.Interfaces;
+using Projeto_ASP.NET_Core_ATEC.Helper;
+
 
 
 namespace Projeto_ASP.NET_Core_ATEC
@@ -34,6 +36,14 @@ namespace Projeto_ASP.NET_Core_ATEC
             // adicionando a injeção de dependencia do contrato
             builder.Services.AddScoped<IContratoRepository, ContratoRepository>();
 
+            //injecao de dependencia do usuario logado
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddScoped<ISessao, Sessao>();
+            builder.Services.AddSession(o =>
+            {
+                o.Cookie.HttpOnly = true;
+                o.Cookie.IsEssential = true;
+            });
 
 
 
@@ -62,6 +72,9 @@ namespace Projeto_ASP.NET_Core_ATEC
             app.UseAuthorization();
 
             app.UseAuthorization();
+
+            //para a sessao de login
+            app.UseSession();
 
             app.MapStaticAssets();
             app.MapControllerRoute(

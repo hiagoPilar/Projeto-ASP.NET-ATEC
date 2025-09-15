@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
 using System.Threading.Tasks;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
-    
+    [PaginaParaUsuarioLogado]
     public class ClienteController : Controller
     {
         private readonly IClienteRepository _clienteRepository;
