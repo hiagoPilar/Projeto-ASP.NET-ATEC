@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class FuncionarioController : Controller
     {
         
