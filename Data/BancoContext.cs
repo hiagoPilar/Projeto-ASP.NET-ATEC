@@ -5,7 +5,7 @@ using Projeto_ASP.NET_Core_ATEC.ViewModels;
 
 namespace Projeto_ASP.NET_Core_ATEC.Data
 {
-    public class BancoContext : IdentityDbContext
+    public class BancoContext : DbContext
     {
         public BancoContext(DbContextOptions<BancoContext> options) : base(options) 
         {
