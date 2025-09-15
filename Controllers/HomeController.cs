@@ -1,9 +1,11 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
+using System.Diagnostics;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

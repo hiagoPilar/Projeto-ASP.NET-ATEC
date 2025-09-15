@@ -1,21 +1,34 @@
 ﻿using Projeto_ASP.NET_Core_ATEC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using Projeto_ASP.NET_Core_ATEC.Helper;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
     public class LoginController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly ISessao _sessao;
 
-        public LoginController(IUsuarioRepositorio usuarioRepositorio)
+        public LoginController(IUsuarioRepositorio usuarioRepositorio, ISessao sessao)
         {
             _usuarioRepositorio = usuarioRepositorio;
+            _sessao = sessao;
         }
 
         public IActionResult Index()
         {
+            //se o usuario estiver logado, redirecionar para a home
+            if(_sessao.BuscarSessaoDoUsuario() != null) return RedirectToAction("Index", "Home");
+
             return View();
+        }
+
+        public IActionResult Sair()
+        {
+            _sessao.RemoverSessaoUsuario();
+
+            return RedirectToAction("Index", "Login");
         }
 
 
@@ -33,6 +46,7 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
                     {
                         if (usuario.SenhaValida(loginModel.Senha))
                         {
+                            _sessao.CriarSessaoDoUsuario(usuario);
                             return RedirectToAction("Index", "Home");
                         }
 
