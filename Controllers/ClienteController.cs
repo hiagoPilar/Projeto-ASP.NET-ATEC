@@ -2,22 +2,25 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
 using System.Threading.Tasks;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
-    
+    [PaginaParaUsuarioLogado]
     public class ClienteController : Controller
     {
         private readonly IClienteRepository _clienteRepository;
-        private readonly UserManager<IdentityUser> _userManager;
+        
 
-        public ClienteController(IClienteRepository clienteRepository, UserManager<IdentityUser> userManager)
+        public ClienteController(IClienteRepository clienteRepository)
         {
             _clienteRepository = clienteRepository;
-            _userManager = userManager;
+            
         }
+
+
 
         public async Task<IActionResult> Index()
         {

@@ -1,26 +1,32 @@
 ﻿@model IEnumerable<Projeto_ASP.NET_Core_ATEC.ViewModels.RelatorioProjetosViewModel>
 
 @{
-    ViewData["Title"] = "Relatório de Projetos Ativos por Cliente";
+    ViewData["Title"] = "Projetos Ativos";
 }
 
-<h2>Relatório de Projetos Ativos por Cliente</h2>
-<hr />
+<h2>Projetos Ativos</h2>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Nome do Cliente</th>
-            <th>Total de Projetos Ativos</th>
+            <th>Nome Projeto</th>
+            <th>Cliente</th>
+            <th>Data Início</th>
+            <th>Orçamento</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.NomeCliente</td>
-                <td>@item.TotalProjetosAtivos</td>
+                <td>@item.NomeProjeto</td>
+                <td>@item.ClienteNome</td>
+                <td>@item.DataInicio</td>
+                <td>@item.Orcamento</td>
             </tr>
         }
     </tbody>
 </table>
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <a class="btn btn-secondary btn-block w-100 py-2" asp-controller="Projeto" asp-action="Index" role="button">Voltar</a>
+</div>

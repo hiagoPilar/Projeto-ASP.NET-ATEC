@@ -1,16 +1,13 @@
-﻿
-@model List<Cliente>
+﻿@model List<Cliente>
 @{
     ViewData["Title"] = "Clientes";
 }
-
 
 <div class="text-center">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
         <a class="btn btn-success" role="button" asp-controller="Cliente" asp-action="Create">Adicionar novo cliente</a>
-        <a class="btn btn-success" role="button">Contratos Ativos</a>
-        <a class="btn btn-success" role="button">Histórico de Faturação</a>
+        <a class="btn btn-success" role="button" asp-area="" asp-controller="Contratos" asp-action="HistoricoFaturacao">Histórico de Faturação</a>
     </div>
     <br />
     <h1 class="display-4">Lista de Clientes</h1>
@@ -24,9 +21,9 @@
             </tr>
         </thead>
         <tbody>
-            @if(Model != null && Model.Any())
+            @if (Model != null && Model.Any())
             {
-                foreach(Cliente cliente in Model)
+                foreach (Cliente cliente in Model)
                 {
                     <tr>
                         <th scope="row">@cliente.Id</th>
@@ -37,16 +34,12 @@
                             <div class="btn-group" role="group">
                                 <a role="button" class="btn btn-success" asp-route-id="@cliente.Id" asp-controller="Cliente" asp-action="Edit">Editar</a>
                                 <a role="button" class="btn btn-danger" asp-route-id="@cliente.Id" asp-controller="Cliente" asp-action="DeleteConfirmation">Apagar</a>
+                                <a class="btn btn-info" role="button" asp-route-id="@cliente.Id" asp-controller="Contratos" asp-action="ContratosClienteAtivos">Contratos Ativos</a>
                             </div>
                         </td>
                     </tr>
                 }
             }
-
         </tbody>
     </table>
 </div>
-
-
-
-

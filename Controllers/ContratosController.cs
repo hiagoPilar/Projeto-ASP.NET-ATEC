@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Projeto_ASP.NET_Core_ATEC.Data.Repositories.Interfaces;
-using Projeto_ASP.NET_Core_ATEC.Models;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Projeto_ASP.NET_Core_ATEC.Data;
+using Projeto_ASP.NET_Core_ATEC.Data.Repositories.Interfaces;
+using Projeto_ASP.NET_Core_ATEC.Filters;
+using Projeto_ASP.NET_Core_ATEC.Models;
+using Projeto_ASP.NET_Core_ATEC.ViewModels;
+using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class ContratosController : Controller
     {
         private readonly IContratoRepository _contratoRepository;
@@ -22,6 +26,18 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
         {
             var contratos = await _contratoRepository.GetAllAsync();
             return View(contratos);
+        }
+
+        public async Task<IActionResult> HistoricoFaturacao()
+        {
+            var historico = await _contratoRepository.GetHistoricoFaturacaoAsync();
+            return View("~/Views/Relatorios/HistoricoFaturacao.cshtml", historico);
+        }
+
+        public async Task<IActionResult> ContratosClienteAtivos(int clienteId)
+        {
+            var contratosAtivos = await _contratoRepository.GetContratosClienteAtivosAsync(clienteId);
+            return View("~/Views/Relatorios/ContratosClienteAtivos.cshtml", contratosAtivos);
         }
 
         public async Task<IActionResult> Details(int? id)

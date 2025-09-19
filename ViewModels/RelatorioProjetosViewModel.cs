@@ -2,7 +2,13 @@
 {
     public class RelatorioProjetosViewModel
     {
-        public string NomeCliente { get; set; }
-        public int TotalProjetosAtivos { get; set; }
+        public int ProjetoId { get; set; }
+        public string NomeProjeto { get; set; } = string.Empty;
+        public int ClienteId { get; set; }
+        public string ClienteNome { get; set; } = string.Empty;
+        public DateTime? DataInicio { get; set; }
+        public DateTime? DataFim { get; set; }
+        public decimal Orcamento { get; set; }
+        
     }
 }

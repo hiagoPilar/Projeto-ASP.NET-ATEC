@@ -23,7 +23,12 @@ namespace Projeto_ASP.NET_Core_ATEC.Data
         //ligação com a ViewModel
         public DbSet<RelatorioProjetosViewModel> RelatorioProjetosViewModel { get; set; }
 
+        // DbSet para o novo relatório de Histórico de Faturação
+        public DbSet<HistoricoFaturacaoViewModel> HistoricoFaturacaoViewModel { get; set; }
 
+
+        // No topo da sua classe BancoContext
+        public DbSet<ContratoClienteAtivoViewModel> ContratoClienteAtivoViewModel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +39,10 @@ namespace Projeto_ASP.NET_Core_ATEC.Data
 
             // Configuração para a ViewModel para ligacao da consulta SQL
             modelBuilder.Entity<RelatorioProjetosViewModel>().HasNoKey().ToView(null);
+
+            modelBuilder.Entity<HistoricoFaturacaoViewModel>().HasNoKey().ToView(null);
+
+            modelBuilder.Entity<ContratoClienteAtivoViewModel>().HasNoKey().ToView(null);
 
             modelBuilder.Entity<Projeto>()
                 .Property(p => p.Orcamento)

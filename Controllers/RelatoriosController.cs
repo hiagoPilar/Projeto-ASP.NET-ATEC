@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
-using System.Threading.Tasks;
+using Projeto_ASP.NET_Core_ATEC.Data.Repositories.Interfaces;
+using Projeto_ASP.NET_Core_ATEC.ViewModels;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
     public class RelatoriosController : Controller
     {
-        private readonly IClienteRepository _clienteRepository;
+        private readonly IRelatorioRepository _relatorioRepository;
 
-        public RelatoriosController(IClienteRepository clienteRepository)
+        public RelatoriosController(IRelatorioRepository relatorioRepository)
         {
-            _clienteRepository = clienteRepository;
+            _relatorioRepository = relatorioRepository;
         }
 
-        public async Task<IActionResult> ProjetosAtivos()
+        public async Task<IActionResult> ProjetosAtivos(int clienteId)
         {
-            var relatorio = await _clienteRepository.GetRelatorioProjetosAtivosAsync();
-            return View(relatorio);
+            // Aqui você pode passar um clienteId fixo para testar, ou vir de query string
+            var projetosAtivos = await _relatorioRepository.GetProjetosAtivosPorClienteAsync(clienteId);
+            return View(projetosAtivos);
         }
     }
 }

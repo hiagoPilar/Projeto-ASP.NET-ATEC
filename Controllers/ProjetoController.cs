@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
+using Projeto_ASP.NET_Core_ATEC.ViewModels;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class ProjetoController : Controller
     {
         private readonly IProjetoRepository _projetoRepository;
@@ -19,8 +22,18 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
             _clienteRepository = clienteRepository;
             _bancoContext = bancoContext;
         }
+        public async Task<IActionResult> ProjetosAtivos(int clienteId)
+        {
+            if (clienteId == 0)
+                return BadRequest("ID do cliente não fornecido.");
 
-        
+            var projetos = await _projetoRepository.GetProjetosAtivosPorClienteAsync(clienteId)
+                           ?? Enumerable.Empty<RelatorioProjetosViewModel>();
+
+            return View("~/Views/Relatorios/ProjetosAtivos.cshtml", projetos);
+        }
+
+
         public IActionResult Index()
         {
             List<Projeto> projetos = _projetoRepository.BuscarTodos();

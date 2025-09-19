@@ -1,11 +1,12 @@
-using Microsoft.AspNetCore.Identity;
+
 using Microsoft.EntityFrameworkCore;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
-
 using System.Threading.Tasks;
 
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories.Interfaces;
+using Projeto_ASP.NET_Core_ATEC.Helper;
+
 
 
 namespace Projeto_ASP.NET_Core_ATEC
@@ -28,22 +29,29 @@ namespace Projeto_ASP.NET_Core_ATEC
             builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
             builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
+            builder.Services.AddScoped<IRelatorioRepository, RelatorioRepository>();
+
 
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             // adicionando a injeção de dependencia do contrato
             builder.Services.AddScoped<IContratoRepository, ContratoRepository>();
 
+            //injecao de dependencia do usuario logado
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddScoped<ISessao, Sessao>();
+            builder.Services.AddSession(o =>
+            {
+                o.Cookie.HttpOnly = true;
+                o.Cookie.IsEssential = true;
+            });
 
 
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<BancoContext>();
-
-
+            
 
             var app = builder.Build();
 
@@ -61,7 +69,8 @@ namespace Projeto_ASP.NET_Core_ATEC
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseAuthorization();
+            //para a sessao de login
+            app.UseSession();
 
             app.MapStaticAssets();
             app.MapControllerRoute(
