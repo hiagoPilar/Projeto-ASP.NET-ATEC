@@ -32,10 +32,12 @@ namespace Projeto_ASP.NET_Core_ATEC
             builder.Services.AddScoped<IRelatorioRepository, RelatorioRepository>();
 
 
+
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             // adicionando a injeção de dependencia do contrato
             builder.Services.AddScoped<IContratoRepository, ContratoRepository>();
+            builder.Services.AddScoped<IHistoricoProjetosRepository, HistoricoProjetosRepository>();
 
             //injecao de dependencia do usuario logado
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

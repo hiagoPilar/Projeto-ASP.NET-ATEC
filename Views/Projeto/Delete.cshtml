@@ -1,0 +1,65 @@
+﻿@model Projeto_ASP.NET_Core_ATEC.Models.Projeto
+
+@{
+    ViewData["Title"] = "Apagar Projeto";
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-danger">Tem certeza que deseja apagar este projeto?</h1>
+    <p class="lead">Esta ação é irreversível.</p>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.DataInicio)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.DataInicio)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.DataFim)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.DataFim)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Orcamento)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Orcamento)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ClienteId)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ClienteId)
+        </dd>
+    </dl>
+
+    <br />
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <input type="submit" value="Apagar" class="btn btn-danger" />
+            <a class="btn btn-secondary" role="button" asp-action="Index">Cancelar</a>
+        </div>
+    </form>
+</div>

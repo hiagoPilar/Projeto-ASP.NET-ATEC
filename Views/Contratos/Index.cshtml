@@ -6,9 +6,9 @@
 
 <h1>Contrato</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <a class="btn btn-success" role="button"  asp-action="Create">Create New</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -67,9 +67,11 @@
                 @Html.DisplayFor(modelItem => item.Projeto.Id)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <div class="btn-group" role="group">
+                    <a role="button" class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                    <a role="button" class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    <a role="button" class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
             </td>
         </tr>
 }

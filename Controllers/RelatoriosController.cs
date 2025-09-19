@@ -19,5 +19,6 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
             var projetosAtivos = await _relatorioRepository.GetProjetosAtivosPorClienteAsync(clienteId);
             return View(projetosAtivos);
         }
+       
     }
 }

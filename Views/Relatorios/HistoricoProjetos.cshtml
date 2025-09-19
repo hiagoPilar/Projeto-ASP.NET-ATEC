@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Projeto_ASP.NET_Core_ATEC.ViewModels.HistoricoProjetosViewModel>
+
+@{
+    ViewData["Title"] = "Histórico de Projetos por Funcionário";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID do Projeto</th>
+            <th>Nome do Projeto</th>
+            <th>Data de Início</th>
+            <th>Data de Fim</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var projeto in Model)
+            {
+                <tr>
+                    <td>@projeto.ProjetoId</td>
+                    <td>@projeto.NomeProjeto</td>
+                    <td>@projeto.DataInicio.ToShortDateString()</td>
+                    <td>@(projeto.DataFim?.ToShortDateString() ?? "Em andamento")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Nenhum projeto encontrado para este funcionário.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <a class="btn btn-secondary btn-block w-100 py-2" asp-controller="Funcionario" asp-action="Index" role="button">Voltar</a>
+</div>
