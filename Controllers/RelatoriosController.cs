@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using Projeto_ASP.NET_Core_ATEC.Enums;
+using Projeto_ASP.NET_Core_ATEC.Filters;
 using System.Threading.Tasks;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
+    [PaginaRestritaPorPerfil(PerfilEnum.Admin, PerfilEnum.Gestor)]
     public class RelatoriosController : Controller
     {
         private readonly IClienteRepository _clienteRepository;

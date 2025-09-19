@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories.Interfaces;
+using Projeto_ASP.NET_Core_ATEC.Enums;
 using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
     [PaginaParaUsuarioLogado]
+    [PaginaRestritaPorPerfil(PerfilEnum.Admin, PerfilEnum.Gestor)]
     public class ContratosController : Controller
     {
         private readonly IContratoRepository _contratoRepository;
