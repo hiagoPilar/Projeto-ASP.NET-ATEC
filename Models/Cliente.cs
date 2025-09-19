@@ -19,7 +19,10 @@ namespace Projeto_ASP.NET_Core_ATEC.Models
         [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Formato de email inválido.")]
         public string Email { get; set; }
 
+<<<<<<< HEAD
         //tive que colocar os new List<> para evitar erro de null 
+=======
+>>>>>>> master
         public ICollection<Contrato> Contratos { get; set; } = new List<Contrato>();
         public ICollection<Projeto> Projetos { get; set; } = new List<Projeto>();
     }
