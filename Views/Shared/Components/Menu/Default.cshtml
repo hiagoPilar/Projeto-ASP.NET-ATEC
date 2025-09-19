@@ -16,32 +16,7 @@
 </button>
 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
     
-    <!--
-    <ul class="navbar-nav flex-grow-1">
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Clientes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Funcionario" asp-action="Index">Funcionários</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Projeto" asp-action="Index">Projetos</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Contratos" asp-action="Index">Contratos</a>
-        </li>
-      
-        
-
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
-        </li>
-
-    </ul> 
-    -->
+   
 
     <ul class="navbar-nav flex-grow-1">
         @if (usuario != null && usuario.Perfil == PerfilEnum.Admin)
@@ -59,10 +34,10 @@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Projeto" asp-action="Index">Projetos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Contrato" asp-action="Index">Contratos</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Contratos" asp-action="Index">Contratos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Usuário" asp-action="Index">Usuários</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuários</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
@@ -74,7 +49,7 @@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Projeto" asp-action="Index">Projetos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Contrato" asp-action="Index">Contratos</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Contratos" asp-action="Index">Contratos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
@@ -95,7 +70,7 @@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Projeto" asp-action="Index">Projetos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Contrato" asp-action="Index">Contratos</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Contratos" asp-action="Index">Contratos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
