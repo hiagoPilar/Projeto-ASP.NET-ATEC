@@ -34,5 +34,14 @@ namespace Projeto_ASP.NET_Core_ATEC.Data.Repositories
                                                .ToListAsync();
             return historico;
         }
+        public async Task<IEnumerable<HistoricoProjetosViewModel>> GetHistoricoProjetosPorFuncionarioAsync(int funcionarioId)
+        {
+            var pFuncionarioId = new SqlParameter("@FuncionarioId", funcionarioId);
+            var historico = await _bancoContext.Set<HistoricoProjetosViewModel>()
+                .FromSqlRaw("EXEC GetHistoricoProjetosPorFuncionario @FuncionarioId", pFuncionarioId)
+                .AsNoTracking()
+                .ToListAsync();
+            return historico;
+        }
     }
 }

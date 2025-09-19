@@ -30,6 +30,8 @@ namespace Projeto_ASP.NET_Core_ATEC.Data
         // No topo da sua classe BancoContext
         public DbSet<ContratoClienteAtivoViewModel> ContratoClienteAtivoViewModel { get; set; }
 
+        public DbSet<HistoricoProjetosViewModel> HistoricoProjetosViewModel { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -43,6 +45,7 @@ namespace Projeto_ASP.NET_Core_ATEC.Data
             modelBuilder.Entity<HistoricoFaturacaoViewModel>().HasNoKey().ToView(null);
 
             modelBuilder.Entity<ContratoClienteAtivoViewModel>().HasNoKey().ToView(null);
+            modelBuilder.Entity<HistoricoProjetosViewModel>().HasNoKey();
 
             modelBuilder.Entity<Projeto>()
                 .Property(p => p.Orcamento)

@@ -8,8 +8,8 @@
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
         <a class="btn btn-success" role="button" asp-controller="Funcionario" asp-action="Create">Adicionar novo funcionário</a>
-        <a class="btn btn-success" role="button">Áreas de Especialização</a>
-        <a class="btn btn-success" role="button">Histórico de Projetos</a>
+        
+        
     </div>
     <br />
     <h1 class="display-4">Lista de Funcionários</h1>
@@ -40,6 +40,7 @@
                             <div class="btn-group" role="group">
                                 <a role="button" class="btn btn-success" asp-route-id="@funcionario.Id" asp-controller="Funcionario" asp-action="Edit">Editar</a>
                                 <a role="button" class="btn btn-danger" asp-route-id="@funcionario.Id" asp-controller="Funcionario" asp-action="DeleteConfirmation">Apagar</a>
+                                <a role="button" class="btn btn-info" asp-route-id="@funcionario.Id" asp-controller="HistoricoProjetos" asp-action="Index">Histórico</a>
                             </div>
                         </td>
                     </tr>
