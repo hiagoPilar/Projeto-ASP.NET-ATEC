@@ -22,6 +22,8 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
             
         }
 
+
+
         public async Task<IActionResult> Index()
         {
            

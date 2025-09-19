@@ -5,7 +5,9 @@ using Projeto_ASP.NET_Core_ATEC.Data.Repositories.Interfaces;
 using Projeto_ASP.NET_Core_ATEC.Enums;
 using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
+using Projeto_ASP.NET_Core_ATEC.ViewModels;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
@@ -28,6 +30,18 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
             return View(contratos);
         }
 
+        public async Task<IActionResult> HistoricoFaturacao()
+        {
+            var historico = await _contratoRepository.GetHistoricoFaturacaoAsync();
+            return View("~/Views/Relatorios/HistoricoFaturacao.cshtml", historico);
+        }
+
+        public async Task<IActionResult> ContratosClienteAtivos(int clienteId)
+        {
+            var contratosAtivos = await _contratoRepository.GetContratosClienteAtivosAsync(clienteId);
+            return View("~/Views/Relatorios/ContratosClienteAtivos.cshtml", contratosAtivos);
+        }
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -47,18 +61,10 @@ namespace Projeto_ASP.NET_Core_ATEC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NumeroContrato,Descricao,DataInicio,DataFim,Valor,Condicoes,ClienteId,ProjetoId")] Contrato contrato)
         {
-            if (ModelState.IsValid)
-            {
-                bool sucesso = await _contratoRepository.AdicionarNovoContratoValidadoAsync(contrato);
-                if (sucesso)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                // Adicionar lógica de erro aqui se a Stored Procedure retornar falha
-            }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "Id", "Id", contrato.ClienteId);
-            ViewData["ProjetoId"] = new SelectList(_context.Projetos, "Id", "Id", contrato.ProjetoId);
-            return View(contrato);
+            await _context.Contratos.AddAsync(contrato);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int? id)

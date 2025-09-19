@@ -21,6 +21,7 @@ namespace Projeto_ASP.NET_Core_ATEC.Data.Repositories
 
         Cliente HistoricoFaturacao(Cliente cliente);
         // metodo assincrono para relatorio de projetos ativos
-        Task<IEnumerable<RelatorioProjetosViewModel>> GetRelatorioProjetosAtivosAsync();
+       
+
     }
 }

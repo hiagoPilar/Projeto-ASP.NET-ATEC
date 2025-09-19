@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
-
 using System.Threading.Tasks;
 
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories.Interfaces;
@@ -30,11 +29,15 @@ namespace Projeto_ASP.NET_Core_ATEC
             builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
             builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
+            builder.Services.AddScoped<IRelatorioRepository, RelatorioRepository>();
+
+
 
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             // adicionando a injeção de dependencia do contrato
             builder.Services.AddScoped<IContratoRepository, ContratoRepository>();
+            builder.Services.AddScoped<IHistoricoProjetosRepository, HistoricoProjetosRepository>();
 
             //injecao de dependencia do usuario logado
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -50,7 +53,7 @@ namespace Projeto_ASP.NET_Core_ATEC
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-
+            
 
             var app = builder.Build();
 
@@ -65,6 +68,7 @@ namespace Projeto_ASP.NET_Core_ATEC
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             //para a sessao de login

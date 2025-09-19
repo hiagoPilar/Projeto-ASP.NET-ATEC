@@ -7,9 +7,9 @@
 <div class="text-center">
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-        <a class="btn btn-success" role="button" asp-controller="Projeto" asp-action="Create">Adicionar novo projeto</a>
-        <a class="btn btn-success" role="button">Projetos Ativos</a>
-        
+        <a class="btn btn-success" role="button" asp-controller="Projeto" asp-action="Create">
+            Adicionar novo projeto
+        </a>
     </div>
     <br />
     <h1 class="display-4">Lista de Projetos</h1>
@@ -24,34 +24,59 @@
                 <th scope="col">Data de Fim</th>
                 <th scope="col">Orçamento</th>
                 <th scope="col">Cliente ID</th>
-                <th scope="col"></th>
-               
+                <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody>
-            @if(Model != null & Model.Any())
+            @if (Model != null && Model.Any())
             {
-                foreach(Projeto projeto in Model)
+                foreach (Projeto projeto in Model)
                 {
                     <tr>
                         <th scope="row">@projeto.Id</th>
                         <td>@projeto.Nome</td>
                         <td>@projeto.Descricao</td>
-                        <td>@projeto.DataInicio</td>
-                        <td>@projeto.DataFim</td>
+                        <td>@projeto.DataInicio.ToShortDateString()</td>
+                        <td>@projeto.DataFim?.ToShortDateString()</td>
                         <td>@projeto.Orcamento</td>
                         <td>@projeto.ClienteId</td>
-                        <td></td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a role="button" class="btn btn-success" asp-route-id="@projeto.Id" asp-controller="Projeto" asp-action="Edit">Editar</a>
-                                <a role="button" class="btn btn-danger" aspr-route-id="@projeto.Id" asp-controller="Projeto" asp-action="Delete">Apagar</a>
+                                <!-- Editar projeto -->
+                                <a role="button" class="btn btn-success"
+                                   asp-route-id="@projeto.Id"
+                                   asp-controller="Projeto"
+                                   asp-action="Edit">
+                                    Editar
+                                </a>
+
+                                <!-- Apagar projeto -->
+                                <a role="button" class="btn btn-danger"
+                                   asp-route-id="@projeto.Id"
+                                   asp-controller="Projeto"
+                                   asp-action="Delete">
+                                    Apagar
+                                </a>
+
+                                <!-- Projetos Ativos do Cliente -->
+                                <a role="button" class="btn btn-info"
+                                   asp-controller="Relatorios"
+                                   asp-action="ProjetosAtivos"
+                                   asp-route-clienteId="@projeto.ClienteId">
+                                    Projetos Ativos
+                                </a>
                             </div>
                         </td>
                     </tr>
                 }
             }
+            else
+            {
+                <tr>
+                    <td colspan="8">Nenhum projeto encontrado</td>
+                </tr>
+            }
         </tbody>
-
     </table>
+    
 </div>
