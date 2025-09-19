@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using Projeto_ASP.NET_Core_ATEC.Enums;
 using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
 using Projeto_ASP.NET_Core_ATEC.ViewModels;
@@ -10,6 +11,8 @@ using Projeto_ASP.NET_Core_ATEC.ViewModels;
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
     [PaginaParaUsuarioLogado]
+    [PaginaRestritaPorPerfil(PerfilEnum.Admin, PerfilEnum.Gestor, PerfilEnum.Funcionario)]
+    
     public class ProjetoController : Controller
     {
         private readonly IProjetoRepository _projetoRepository;

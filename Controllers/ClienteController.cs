@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using Projeto_ASP.NET_Core_ATEC.Enums;
 using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
     [PaginaParaUsuarioLogado]
+    [PaginaRestritaPorPerfil(PerfilEnum.Admin)]
     public class ClienteController : Controller
     {
         private readonly IClienteRepository _clienteRepository;

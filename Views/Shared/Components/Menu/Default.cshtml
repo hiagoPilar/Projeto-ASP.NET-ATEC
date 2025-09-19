@@ -1,5 +1,13 @@
 ﻿@model Usuario
+@using Projeto_ASP.NET_Core_ATEC.Models
+@using Projeto_ASP.NET_Core_ATEC.Enums
 
+
+@{
+    var usuario = Context.Session.GetString("sessaoUsuarioLogado") != null
+        ? Newtonsoft.Json.JsonConvert.DeserializeObject<Usuario>(Context.Session.GetString("sessaoUsuarioLogado"))
+        : null;
+}
 
 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Olá, @Model.Nome</a>
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -7,6 +15,8 @@
     <span class="navbar-toggler-icon"></span>
 </button>
 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    
+    <!--
     <ul class="navbar-nav flex-grow-1">
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -25,16 +35,72 @@
         </li>
       
         
-        @if (Model.Perfil == Projeto_ASP.NET_Core_ATEC.Enums.PerfilEnum.Admin)
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuários</a>
-            </li>
-        }
 
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
         </li>
 
+    </ul> 
+    -->
+
+    <ul class="navbar-nav flex-grow-1">
+        @if (usuario != null && usuario.Perfil == PerfilEnum.Admin)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Clientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Funcionario" asp-action="Index">Funcionários</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Projeto" asp-action="Index">Projetos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Contrato" asp-action="Index">Contratos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Usuário" asp-action="Index">Usuários</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
+            </li>
+        }
+        else if (usuario != null && usuario.Perfil == PerfilEnum.Gestor)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Projeto" asp-action="Index">Projetos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Contrato" asp-action="Index">Contratos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
+            </li>
+        }
+        else if (usuario != null && usuario.Perfil == PerfilEnum.Funcionario)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Projeto" asp-action="Index">Projetos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
+            </li>
+        }
+        else if (usuario != null && usuario.Perfil == PerfilEnum.Cliente)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Projeto" asp-action="Index">Projetos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Contrato" asp-action="Index">Contratos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Sair">Sair</a>
+            </li>
+        }
     </ul>
+
 </div>

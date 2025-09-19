@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Projeto_ASP.NET_Core_ATEC.Data;
 using Projeto_ASP.NET_Core_ATEC.Data.Repositories;
+using Projeto_ASP.NET_Core_ATEC.Enums;
 using Projeto_ASP.NET_Core_ATEC.Filters;
 using Projeto_ASP.NET_Core_ATEC.Models;
 
 namespace Projeto_ASP.NET_Core_ATEC.Controllers
 {
     [PaginaParaUsuarioLogado]
+    [PaginaRestritaPorPerfil(PerfilEnum.Admin)]
     public class FuncionarioController : Controller
     {
         
